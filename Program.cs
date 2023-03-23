@@ -1,12 +1,29 @@
-﻿if (args.Length == 2) {
-    try
+﻿if (args.Length == 3 || args.Length == 2)
+{
+
+    if (args[0] == "build")
     {
-        Iban input = new (args[0], args[1]); Console.WriteLine($"{input.BuildIban()}");
+        try
+        {
+            Iban input = new(args[1], args[2]); Console.WriteLine($"{input.BuildIban()}");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
-    catch (ArgumentException ex)
+    else if (args[0] == "analyze")
     {
-        Console.WriteLine(ex.Message);
+        try
+        {
+            Iban bankInfo = new(args[1]);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
+    else {Console.WriteLine("Your argument needs to contain 'analyze' or 'build'");}
 }
-else if (args.Length > 2) {Console.WriteLine("Argument is to long. Please try again!");}
-else {Console.WriteLine("Argument is to short. Please try again!");}
+else if (args.Length > 3) { Console.WriteLine("Argument is to long. Please try again!"); }
+else { Console.WriteLine("Argument is to short. Please try again!"); }
