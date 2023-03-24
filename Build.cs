@@ -11,6 +11,11 @@ public class Iban
         string ibanCode = $"{countryCode}{checksum}{bankCode}{accountNumber}{nationalCheck}";
         return ibanCode;
     }
+    public string GiveBankInfo()
+    {
+        string bankInfo = $"{bankCode} {accountNumber}";
+        return bankInfo;
+    }
     private bool CheckIfCorrectInput(string stringToCheck)
     {
         for (int i = 0; i < stringToCheck.Length; i++)
@@ -38,13 +43,14 @@ public class Iban
         if (countryCode != "NO") { throw new ArgumentException("Wrong country code. Please try again!"); }
         checksum = bankInfo.Substring(0, 2); bankInfo = bankInfo.Substring(2);
         if (checksum != "00") { throw new ArgumentException("Wrong check sum. Please try again!"); }
-        bankCode = bankInfo.Substring(0, 5); bankInfo = bankInfo.Substring(5);
+        bankCode = bankInfo.Substring(0, 4); bankInfo = bankInfo.Substring(4);
         if (!CheckIfCorrectInput(bankCode)) { throw new ArgumentException("Your bank code contains letters. Please try again!"); }
-        accountNumber = bankInfo.Substring(0, 7);
+        accountNumber = bankInfo.Substring(0, 6);
         if (!CheckIfCorrectInput(accountNumber)) { throw new ArgumentException("Your bank account contains a letter. Please try again!"); }
-        bankInfo = bankInfo.Substring(7);
-        if (bankInfo.Substring(0, 1) != nationalCheck) { throw new ArgumentException("Wrong national check. Please try again!"); }
+        bankInfo = bankInfo.Substring(6);
+        if (bankInfo != "7") { throw new ArgumentException("Wrong national check. Please try again!"); }
         bankInfo = bankInfo.Substring(1);
         if (bankInfo != "") { throw new ArgumentException("Your bank Info is too long. Please try again!"); }
+        Console.WriteLine(GiveBankInfo());
     }
 }

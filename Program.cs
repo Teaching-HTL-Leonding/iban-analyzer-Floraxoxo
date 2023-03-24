@@ -1,7 +1,8 @@
-﻿if (args.Length == 3 || args.Length == 2)
+﻿Console.Clear();
+if (args.Length == 3 || args.Length == 2)
 {
-
-    if (args[0] == "build")
+    string word = args[0];
+    if (word == "build")
     {
         try
         {
@@ -12,7 +13,7 @@
             Console.WriteLine(ex.Message);
         }
     }
-    else if (args[0] == "analyze")
+    else if (word == "analyze")
     {
         try
         {
